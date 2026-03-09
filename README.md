@@ -9,7 +9,7 @@ Incluye un diseño moderno, responsive y una integración de reservas mediante C
 
 ## Vista previa
 
-![Vista previa del proyecto](./screenshots/peluqueria-preview.png)
+![Vista previa del proyecto](./screenshots:peluqueria-preview.png)
 
 ## Tecnologías utilizadas
 
