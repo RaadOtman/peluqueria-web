@@ -60,7 +60,7 @@ export default function App() {
 
   const openNow = isOpenNow();
 
-  /* Parallax sutil */
+  
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
@@ -82,7 +82,7 @@ export default function App() {
     }, 6500); // cambia cada 6.5s
 
     return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   const prevSlide = () => {
@@ -101,7 +101,7 @@ export default function App() {
         <span className="waText">WhatsApp</span>
       </a>
 
-      {/* NAV */}
+      
       <header className="nav">
         <div className="container navContent">
           <div className="logoWrap">
@@ -121,13 +121,13 @@ export default function App() {
         </div>
       </header>
 
-      {/* HERO / RESERVA */}
+      
       <section
         id="reservar"
         ref={heroRef}
         className={`heroBanner ${heroLoaded ? "isLoaded" : ""}`}
       >
-        {/* Fondo con 3 imágenes (crossfade) */}
+        
         <div className="heroBgWrap" aria-hidden="true">
           {heroImages.map((src, idx) => (
             <img
@@ -140,7 +140,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* Flechas */}
         <button
           className="heroArrow heroArrowLeft"
           type="button"
@@ -205,8 +204,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* SERVICIOS */}
-      {/* SERVICIOS */}
 <section id="servicios" className="section">
   <div className="container">
     <div className="sectionHead reveal">
@@ -220,7 +217,7 @@ export default function App() {
           <h3>{s.title}</h3>
           <p>{s.desc}</p>
 
-          {/* Línea decorativa */}
+          
           <div className="cardDivider" />
         </div>
       ))}
@@ -228,7 +225,7 @@ export default function App() {
   </div>
 </section>
 
-      {/* SOBRE NOSOTROS */}
+      
       <section id="sobre" className="section dark">
         <div className="container about">
           <div className="aboutImg reveal">
