@@ -1,36 +1,41 @@
-# Peluqueria Web
+# 💈 Peluquería Web
 
-![React](https://img.shields.io/badge/React-20232A?logo=react)
-![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite)
-![CSS](https://img.shields.io/badge/CSS-1572B6?logo=css3)
+Proyecto de página web para una peluquería desarrollado con **React + Vite + CSS**.  
+La aplicación muestra servicios, información del negocio y permite realizar **reservas online mediante Calendly**.
 
-Proyecto de página web para peluquería desarrollado con React, Vite y CSS.  
-Incluye un diseño moderno, responsive y una integración de reservas mediante Calendly.
+---
 
-## Vista previa
+## 🚀 Vista previa
 
-![Vista previa del proyecto](./screenshots/preview.png)
+<p align="center">
+  <img src="./screenshots/preview.png" width="900"/>
+</p>
 
-## Tecnologías utilizadas
+---
 
-- React
-- Vite
-- CSS
-- Calendly
+## 🛠 Tecnologías utilizadas
 
-## Características
+<p>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react"/>
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite"/>
+  <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3"/>
+  <img src="https://img.shields.io/badge/Calendly-006BFF?style=for-the-badge"/>
+</p>
+
+---
+
+## ✨ Características
 
 - Diseño moderno y responsive
-- Sección de presentación de servicios
-- Hero con imágenes destacadas
+- Hero con imágenes dinámicas
+- Sección de servicios
+- Información del negocio
 - Integración de reservas online
-- Estructura organizada por componentes
+- Estructura organizada con componentes de React
 
-## Objetivo del proyecto
+---
 
-Este proyecto forma parte de mi práctica y aprendizaje en desarrollo web, trabajando la maquetación, la estructura de componentes y la mejora de la experiencia visual de una web real.
-
-## Instalación y uso
+## 📦 Instalación
 
 Clonar el repositorio:
 
