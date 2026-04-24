@@ -193,8 +193,8 @@ section[id] { scroll-margin-top: 72px; }
 
 .btnPrimary:hover {
   background: #d4b55a;
-  box-shadow: 0 4px 24px rgba(201, 168, 76, 0.35);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 30px rgba(201, 168, 76, 0.55), 0 0 0 1px rgba(201, 168, 76, 0.22);
+  transform: translateY(-2px);
 }
 
 /* Fantasma: fondo transparente */
@@ -255,6 +255,47 @@ section[id] { scroll-margin-top: 72px; }
   font-weight: 800;
   font-size: 14px;
   letter-spacing: 0.02em;
+}
+
+/* Tooltip "¿Hablamos?" — aparece al hacer hover (solo escritorio) */
+.waFloat::before {
+  content: "¿Hablamos?";
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  background: rgba(10, 11, 16, 0.92);
+  border: 1px solid var(--line);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.waFloat:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Anillo pulsante de glow verde */
+.waFloat::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 999px;
+  border: 2px solid rgba(37, 211, 102, 0.30);
+  animation: waPulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes waPulse {
+  0%, 100% { transform: scale(1);    opacity: 0.55; }
+  60%       { transform: scale(1.18); opacity: 0; }
 }
 
 /* ══════════════════════════════════════════
@@ -621,9 +662,10 @@ section[id] { scroll-margin-top: 72px; }
 }
 
 .serviceCard:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   border-color: var(--gold-border);
   background: rgba(201, 168, 76, 0.05);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--gold-border);
 }
 
 /* Tarjeta destacada */
@@ -1050,13 +1092,63 @@ section[id] { scroll-margin-top: 72px; }
 .footerBottomSub { font-size: 13px; }
 
 /* ══════════════════════════════════════════
-   ANIMACIONES
+   ANIMACIONES — SCROLL REVEAL
+   IntersectionObserver en App.jsx añade
+   la clase .revealed cuando el elemento
+   entra en pantalla.
 ══════════════════════════════════════════ */
-.reveal { animation: fadeUp 0.6s ease both; }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Estado inicial: invisible y desplazado */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+/* Estado final: visible */
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   BARRA CTA FIJA — SOLO MÓVIL
+   Barra fija abajo con "Reservar" + "WhatsApp"
+══════════════════════════════════════════ */
+.mobileCta {
+  display: none;              /* oculta en escritorio */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  padding: 10px 16px;
+  /* safe-area para iPhones con notch */
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  background: rgba(9, 10, 14, 0.97);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* Botón principal (dorado) — reservar */
+.mobileCta__btn { flex: 1; }
+
+/* Botón WhatsApp — verde sutil */
+.mobileCta__wa {
+  flex: 1;
+  background: rgba(37, 211, 102, 0.12);
+  border-color: rgba(37, 211, 102, 0.28);
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.mobileCta__wa:hover {
+  background: rgba(37, 211, 102, 0.20);
+  border-color: rgba(37, 211, 102, 0.45);
 }
 
 /* ══════════════════════════════════════════
@@ -1079,25 +1171,34 @@ section[id] { scroll-margin-top: 72px; }
   .hamburger { display: flex; }
   .navCta    { display: none; }
 
-  /* Menú cerrado */
+  /* Menú móvil: siempre flex pero oculto con max-height para poder animar */
   .navLinks {
-    display: none;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    flex-direction: column;
     background: rgba(11, 12, 16, 0.98);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--line);
-    padding: 8px 0;
     gap: 0;
     z-index: 99;
+    /* Estado cerrado — animable */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
   }
 
-  /* Menú abierto */
-  .navLinks.navLinksOpen { display: flex; }
+  /* Estado abierto: slide hacia abajo + fade in */
+  .navLinks.navLinksOpen {
+    max-height: 360px;
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   .navLinks a {
     padding: 16px 24px;
@@ -1145,8 +1246,14 @@ section[id] { scroll-margin-top: 72px; }
   .footerGrid { grid-template-columns: 1fr; gap: 32px; }
   .footerMap  { height: 220px; }
 
-  /* ── WA flotante ── */
-  .waText { display: none; }
+  /* ── WA flotante: sustituido por la barra inferior en móvil ── */
+  .waFloat { display: none; }
+
+  /* ── Barra CTA móvil: visible ── */
+  .mobileCta { display: flex; }
+
+  /* ── Espacio para que el footer no quede tapado por la barra ── */
+  body { padding-bottom: 76px; }
 
   /* ── Contacto ── */
   .contactCard { padding: 22px 24px; }

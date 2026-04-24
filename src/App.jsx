@@ -118,6 +118,27 @@ export default function App() {
     return () => clearInterval(id);
   }, []);
 
+  /* Animaciones al hacer scroll:
+     Cuando un elemento .reveal entra en pantalla,
+     le añadimos la clase .revealed para que se vea. */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target); // solo anima una vez
+          }
+        });
+      },
+      { threshold: 0.10, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   const prevSlide = () =>
     setSlide((s) => (s - 1 + heroImages.length) % heroImages.length);
   const nextSlide = () =>
@@ -488,6 +509,22 @@ export default function App() {
           <span className="footerBottomSub">Hecho con ❤️ en Granada</span>
         </div>
       </footer>
+
+      {/* ── BARRA CTA FIJA EN MÓVIL ─────────────── */}
+      {/* Solo visible en pantallas ≤ 980px (ver styles.css) */}
+      <div className="mobileCta">
+        <a className="btn btnPrimary mobileCta__btn" href="#reservar">
+          Reservar cita
+        </a>
+        <a
+          className="btn mobileCta__wa"
+          href={whatsappLink}
+          target="_blank"
+          rel="noreferrer"
+        >
+          💬 WhatsApp
+        </a>
+      </div>
 
     </div>
   );
