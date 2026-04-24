@@ -8,7 +8,7 @@ import hero1 from "./assets/hero1.jpg";
 import hero2 from "./assets/hero2.jpg";
 import hero3 from "./assets/hero3.jpg";
 
-const WHATSAPP_NUMBER = "34600111222";
+const WHATSAPP_NUMBER = "34643575719";
 const WHATSAPP_TEXT = "Hola, quiero reservar una cita 🙂";
 const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   WHATSAPP_TEXT
