@@ -114,21 +114,26 @@ section[id] { scroll-margin-top: 72px; }
 
 /* ── Logo ── */
 .logoWrap {
-  background: rgba(255, 255, 255, 0.97);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 14px;
-  padding: 9px 18px;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-shrink: 0;
 }
 
 .logoImg {
-  height: 32px;
+  height: 36px;
   width: auto;
-  max-width: 240px;
+  max-width: 200px;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  opacity: 0.90;
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
+
+.logoImg:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
 
 /* ── Hamburguesa ── */
 .hamburger {
@@ -1232,8 +1237,7 @@ section[id] { scroll-margin-top: 72px; }
   .navLinks a::after     { display: none; }
 
   /* ── Logo ── */
-  .logoImg  { height: 26px; max-width: 200px; }
-  .logoWrap { padding: 8px 14px; }
+  .logoImg  { height: 30px; }
 
   /* ── Hero ── */
   .heroBanner { min-height: 80vh; }

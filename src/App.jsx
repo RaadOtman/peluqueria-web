@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import CalendlyBarberos from "./CalendlyBarberos";
 
-import logo from "./assets/logo.png";
+import logo from "./assets/logo-mansour.png";
 
 import hero1 from "./assets/hero1.jpg";
 import hero2 from "./assets/hero2.jpg";
