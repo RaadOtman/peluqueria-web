@@ -67,23 +67,35 @@ const stats = [
   { value: "5 ★",  label: "Valoración media"      },
 ];
 
-/* ── Abierto / cerrado según horario real ── */
+/* ── Abierto / cerrado según horario real ──
+   Lunes–Viernes: 10:00–14:00 y 17:00–21:00
+   Sábado:        09:30–14:00 y 17:30–20:00
+   Domingo:       Cerrado
+*/
 function isOpenNow() {
   const now = new Date();
-  const day = now.getDay(); // 0 = domingo
-  if (day === 0) return false;
-
+  const day     = now.getDay(); // 0=domingo, 6=sábado
   const minutes = now.getHours() * 60 + now.getMinutes();
 
-  const morningOpen    = 10 * 60 + 30;
-  const morningClose   = 14 * 60;
-  const afternoonOpen  = 17 * 60 + 30;
-  const afternoonClose = 21 * 60;
+  if (day === 0) return false; // Domingo: siempre cerrado
 
-  return (
-    (minutes >= morningOpen  && minutes < morningClose) ||
-    (minutes >= afternoonOpen && minutes < afternoonClose)
-  );
+  if (day >= 1 && day <= 5) {
+    // Lunes a viernes
+    return (
+      (minutes >= 10 * 60      && minutes < 14 * 60) ||
+      (minutes >= 17 * 60      && minutes < 21 * 60)
+    );
+  }
+
+  if (day === 6) {
+    // Sábado
+    return (
+      (minutes >= 9 * 60 + 30  && minutes < 14 * 60) ||
+      (minutes >= 17 * 60 + 30 && minutes < 20 * 60)
+    );
+  }
+
+  return false;
 }
 
 export default function App() {
@@ -229,13 +241,8 @@ export default function App() {
             </p>
 
             <div className="heroButtons">
-              {openNow ? (
-                <CalendlyBarberos />
-              ) : (
-                <a className="btn btnPrimary" href={whatsappLink} target="_blank" rel="noreferrer">
-                  Reservar por WhatsApp
-                </a>
-              )}
+              {/* Calendly siempre disponible, independientemente del horario */}
+              <CalendlyBarberos />
               <a className="btn btnGhost" href="#servicios">
                 Ver servicios ↓
               </a>
@@ -244,7 +251,7 @@ export default function App() {
             <div className="heroBadges">
               <div className="badge">
                 <p className="miniTitle">Horario</p>
-                <p>10:30–14:00 · 17:30–21:00</p>
+                <p>L–V 10:00–21:00 · Sáb 09:30–20:00</p>
               </div>
               <div className="badge">
                 <p className="miniTitle">Ubicación</p>
@@ -429,13 +436,8 @@ export default function App() {
             Elige barbero, día y hora desde tu móvil. Rápido, fácil y sin llamadas.
           </p>
           <div className="ctaButtons">
-            {openNow ? (
-              <CalendlyBarberos />
-            ) : (
-              <a className="btn btnPrimary ctaBtn" href={whatsappLink} target="_blank" rel="noreferrer">
-                💬 Reservar por WhatsApp
-              </a>
-            )}
+            {/* Calendly siempre disponible, independientemente del horario */}
+            <CalendlyBarberos />
             <a className="btn btnGhost ctaBtn" href="tel:+34643575719">
               📞 Llamar ahora
             </a>
@@ -456,7 +458,8 @@ export default function App() {
           </div>
           <div>
             <p className="miniTitle">Horario</p>
-            <p>Lun–Sáb · 10:30–14:00 y 17:30–21:00</p>
+            <p>Lun–Vie: 10:00–14:00 y 17:00–21:00</p>
+            <p>Sábado: 09:30–14:00 y 17:30–20:00</p>
           </div>
           <div className="contactCtas">
             <a className="btn btnPrimary" href="#reservar">Reservar cita</a>
@@ -478,7 +481,8 @@ export default function App() {
             <p className="footerText">Cortes modernos, fades y coloración profesional.</p>
             <div className="footerContact">
               <p className="footerText">📞 +34 643 575 719</p>
-              <p className="footerText">⏰ 10:30–14:00 · 17:30–21:00</p>
+              <p className="footerText">⏰ L–V: 10:00–14:00 y 17:00–21:00</p>
+              <p className="footerText">⏰ Sáb: 09:30–14:00 y 17:30–20:00</p>
               <p className="footerText">📍 Motril, Granada</p>
             </div>
           </div>
